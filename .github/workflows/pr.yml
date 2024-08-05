@@ -8,6 +8,10 @@ jobs:
     outputs:
       should_skip: ${{ steps.filter.outputs.should_skip }}
     steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          fetch-depth: 0
       - uses: leavesster/pull-request-path-filter@v0.1.2
         id: "filter"
         with:
@@ -19,6 +23,10 @@ jobs:
     outputs:
       should_skip: ${{ steps.filter.outputs.should_skip }}
     steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          fetch-depth: 0
       - uses: leavesster/pull-request-path-filter@v0.1.2
         id: "filter"
         with:
@@ -30,6 +38,10 @@ jobs:
     outputs:
       should_skip: ${{ steps.filter.outputs.should_skip }}
     steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          fetch-depth: 0
       - uses: leavesster/pull-request-path-filter@v0.1.2
         id: "filter"
         with:
