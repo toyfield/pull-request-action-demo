@@ -47,7 +47,7 @@ jobs:
         with:
           paths: |
             - "src/**"
-            - "!src/**/*.md"
+            - "!src/**.md"
 
   path-echo:
     runs-on: ubuntu-latest
