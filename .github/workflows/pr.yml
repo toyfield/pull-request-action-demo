@@ -1,0 +1,72 @@
+name: pull request
+on:
+  pull_request:
+
+jobs:
+  path-filter:
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.filter.outputs.should_skip }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          fetch-depth: 0
+      - uses: leavesster/pull-request-path-filter@v0.2.2
+        id: "filter"
+        with:
+          paths: |
+            - "src/**"
+
+  ignore-path-filter:
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.filter.outputs.should_skip }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          fetch-depth: 0
+      - uses: leavesster/pull-request-path-filter@v0.2.2
+        id: "filter"
+        with:
+          paths-ignore: |
+            - "**.md"
+
+  paths-filter:
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.filter.outputs.should_skip }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          fetch-depth: 0
+      - uses: leavesster/pull-request-path-filter@v0.2.2
+        id: "filter"
+        with:
+          paths: |
+            - "src/**"
+            - "!src/**.md"
+
+  path-echo:
+    runs-on: ubuntu-latest
+    needs: path-filter
+    if: ${{ needs.path-filter.outputs.should_skip != 'true' }}
+    steps:
+      - run: echo "path hit"
+
+  ignore-path-echo:
+    runs-on: ubuntu-latest
+    needs: ignore-path-filter
+    if: ${{ needs.ignore-path-filter.outputs.should_skip != 'true' }}
+    steps:
+      - run: echo "pass ignore path"
+
+  paths-echo:
+    runs-on: ubuntu-latest
+    needs: paths-filter
+    if: ${{ needs.paths-filter.outputs.should_skip != 'true' }}
+    steps:
+      - run: echo "path hit"
+  
