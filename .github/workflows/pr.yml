@@ -5,6 +5,7 @@ on:
 jobs:
   head-ref:
     runs-on: ubuntu-latest
+    if: ${{ github.head_ref != 'leavesster-patch-1' }}
     steps:
       - run: echo ${{github.head_ref}}
   path-filter:
