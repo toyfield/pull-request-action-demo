@@ -3,6 +3,10 @@ on:
   pull_request:
 
 jobs:
+  head-ref:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{github.head_ref}}
   path-filter:
     runs-on: ubuntu-latest
     outputs:
