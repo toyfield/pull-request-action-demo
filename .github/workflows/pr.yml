@@ -3,6 +3,13 @@ on:
   pull_request:
 
 jobs:
+  run-shell:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "aaa"
+          dasdsaxa
+          echo "bbb"
   path-filter:
     runs-on: ubuntu-latest
     outputs:
